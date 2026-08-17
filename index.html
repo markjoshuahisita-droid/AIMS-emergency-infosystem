@@ -1,0 +1,212 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIMS Emergency Response System</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#eef2f7;color:#222}
+header{
+background:#003366;
+color:#fff;
+padding:18px;
+text-align:center;
+}
+header h1{font-size:22px}
+header p{font-size:13px;margin-top:5px}
+.container{padding:15px}
+.card{
+background:#fff;
+border-radius:14px;
+padding:15px;
+margin-bottom:15px;
+box-shadow:0 3px 8px rgba(0,0,0,.1);
+}
+button{
+width:100%;
+padding:14px;
+margin:7px 0;
+border:none;
+border-radius:10px;
+font-size:16px;
+font-weight:bold;
+color:#fff;
+cursor:pointer;
+}
+.fire{background:#d62828}
+.flood{background:#0077b6}
+.blackout{background:#495057}
+.firstaid{background:#2a9d8f}
+.contact{background:#6a4c93}
+.back{background:#555}
+.page{display:none}
+.page.active{display:block}
+ol li{margin:10px 0;line-height:1.5}
+.contact-box{
+padding:12px;
+background:#f4f4f4;
+border-radius:8px;
+margin:8px 0;
+}
+footer{
+text-align:center;
+font-size:12px;
+padding:15px;
+color:#555;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>AIMS Emergency Response Information System</h1>
+<p>Asian Institute of Maritime Studies</p>
+</header>
+
+<!-- HOME -->
+<div id="home" class="page active">
+<div class="container">
+
+<div class="card">
+<h2>Emergency Procedures</h2>
+<p style="margin-top:8px">Scan the QR code to instantly access emergency response guides for laboratory and engine room training.</p>
+</div>
+
+<button class="fire" onclick="openPage('fire')">Engine Room Fire</button>
+
+<button class="flood" onclick="openPage('flood')">Flooding / Water Ingress</button>
+
+<button class="blackout" onclick="openPage('blackout')">Engine Room Blackout</button>
+
+<button class="firstaid" onclick="openPage('firstaid')">First Aid</button>
+
+<button class="contact" onclick="openPage('contacts')">Emergency Contacts</button>
+
+</div>
+</div>
+
+<!-- FIRE -->
+<div id="fire" class="page">
+<div class="container">
+<div class="card">
+<h2>Engine Room Fire</h2>
+<ol>
+<li>Raise the fire alarm immediately.</li>
+<li>Inform the bridge or instructor.</li>
+<li>Stop fuel supply if safe.</li>
+<li>Close ventilation dampers.</li>
+<li>Use the correct fire extinguisher.</li>
+<li>Proceed to the designated muster station.</li>
+</ol>
+</div>
+<button class="back" onclick="goHome()">Back to Home</button>
+</div>
+</div>
+
+<!-- FLOOD -->
+<div id="flood" class="page">
+<div class="container">
+<div class="card">
+<h2>Flooding Response</h2>
+<ol>
+<li>Report flooding immediately.</li>
+<li>Identify the source of water ingress.</li>
+<li>Close watertight doors.</li>
+<li>Start bilge pumping if instructed.</li>
+<li>Monitor compartment water level.</li>
+<li>Wait for further instructions.</li>
+</ol>
+</div>
+<button class="back" onclick="goHome()">Back to Home</button>
+</div>
+</div>
+
+<!-- BLACKOUT -->
+<div id="blackout" class="page">
+<div class="container">
+<div class="card">
+<h2>Engine Room Blackout</h2>
+<ol>
+<li>Stay calm and maintain communication.</li>
+<li>Check emergency lighting.</li>
+<li>Start the emergency generator if required.</li>
+<li>Restore essential systems safely.</li>
+<li>Record the incident after recovery.</li>
+</ol>
+</div>
+<button class="back" onclick="goHome()">Back to Home</button>
+</div>
+</div>
+
+<!-- FIRST AID -->
+<div id="firstaid" class="page">
+<div class="container">
+<div class="card">
+<h2>Basic First Aid</h2>
+<ol>
+<li>Ensure the scene is safe.</li>
+<li>Check responsiveness.</li>
+<li>Call for medical assistance.</li>
+<li>Control severe bleeding with pressure.</li>
+<li>Cool burns with clean running water.</li>
+<li>Do not move seriously injured persons unless necessary.</li>
+</ol>
+</div>
+<button class="back" onclick="goHome()">Back to Home</button>
+</div>
+</div>
+
+<!-- CONTACTS -->
+<div id="contacts" class="page">
+<div class="container">
+<div class="card">
+<h2>Emergency Contacts</h2>
+
+<div class="contact-box">
+<strong>School Clinic</strong><br>
+(Insert Clinic Number)
+</div>
+
+<div class="contact-box">
+<strong>Security Office</strong><br>
+(Insert Security Number)
+</div>
+
+<div class="contact-box">
+<strong>Laboratory Instructor</strong><br>
+(Insert Instructor Number)
+</div>
+
+<div class="contact-box">
+<strong>Philippine Emergency Hotline</strong><br>
+911
+</div>
+
+</div>
+<button class="back" onclick="goHome()">Back to Home</button>
+</div>
+</div>
+
+<footer>
+QR Code-Based Emergency Response Information System
+</footer>
+
+<script>
+function openPage(id){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+window.scrollTo(0,0);
+}
+function goHome(){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById('home').classList.add('active');
+window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>
