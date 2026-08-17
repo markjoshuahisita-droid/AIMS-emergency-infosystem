@@ -1,212 +1,381 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AIMS Emergency Response System</title>
+<title>AIMS SafeCampus | Disaster & Risk Awareness</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#eef2f7;color:#222}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{background:#eef3f8;color:#222}
 header{
-background:#003366;
-color:#fff;
-padding:18px;
+background:linear-gradient(135deg,#003366,#0b5ed7);
+color:white;
+padding:25px 18px;
 text-align:center;
 }
-header h1{font-size:22px}
-header p{font-size:13px;margin-top:5px}
-.container{padding:15px}
-.card{
-background:#fff;
-border-radius:14px;
-padding:15px;
-margin-bottom:15px;
-box-shadow:0 3px 8px rgba(0,0,0,.1);
-}
-button{
-width:100%;
-padding:14px;
-margin:7px 0;
-border:none;
-border-radius:10px;
-font-size:16px;
-font-weight:bold;
-color:#fff;
-cursor:pointer;
-}
-.fire{background:#d62828}
-.flood{background:#0077b6}
-.blackout{background:#495057}
-.firstaid{background:#2a9d8f}
-.contact{background:#6a4c93}
-.back{background:#555}
+header h1{font-size:24px}
+header p{font-size:13px;margin-top:6px;opacity:.9}
+.container{padding:16px}
 .page{display:none}
 .page.active{display:block}
-ol li{margin:10px 0;line-height:1.5}
-.contact-box{
+.card{
+background:white;
+border-radius:16px;
+padding:18px;
+margin-bottom:16px;
+box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-top:15px;
+}
+.menu{
+border-radius:14px;
+padding:18px 10px;
+text-align:center;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+.menu span{font-size:32px;display:block;margin-bottom:8px}
+.red{background:#d62828}
+.orange{background:#f77f00}
+.blue{background:#0077b6}
+.green{background:#2a9d8f}
+.purple{background:#7b2cbf}
+.gray{background:#495057}
+h2{margin-bottom:10px;color:#003366}
+h3{margin:12px 0 8px;color:#0b5ed7}
+ul{padding-left:20px}
+li{margin:8px 0;line-height:1.5}
+.back{
+width:100%;
+padding:14px;
+background:#003366;
+color:white;
+border:none;
+border-radius:12px;
+font-size:16px;
+font-weight:bold;
+}
+.badge{
+display:inline-block;
+background:#dbeafe;
+color:#003366;
+padding:5px 10px;
+border-radius:20px;
+font-size:12px;
+margin-top:8px;
+}
+.warning{
+background:#fff3cd;
+border-left:5px solid #f0ad4e;
 padding:12px;
-background:#f4f4f4;
 border-radius:8px;
-margin:8px 0;
+margin-top:12px;
+}
+.danger{
+background:#fdeaea;
+border-left:5px solid #dc3545;
+padding:12px;
+border-radius:8px;
+margin-top:12px;
 }
 footer{
 text-align:center;
+padding:20px;
 font-size:12px;
-padding:15px;
-color:#555;
+color:#666;
+}
+.contact{
+background:#f5f5f5;
+padding:12px;
+border-radius:10px;
+margin:10px 0;
 }
 </style>
-</head>
-
-<body>
-
-<header>
-<h1>AIMS Emergency Response Information System</h1>
-<p>Asian Institute of Maritime Studies</p>
-</header>
-
-<!-- HOME -->
-<div id="home" class="page active">
-<div class="container">
-
-<div class="card">
-<h2>Emergency Procedures</h2>
-<p style="margin-top:8px">Scan the QR code to instantly access emergency response guides for laboratory and engine room training.</p>
-</div>
-
-<button class="fire" onclick="openPage('fire')">Engine Room Fire</button>
-
-<button class="flood" onclick="openPage('flood')">Flooding / Water Ingress</button>
-
-<button class="blackout" onclick="openPage('blackout')">Engine Room Blackout</button>
-
-<button class="firstaid" onclick="openPage('firstaid')">First Aid</button>
-
-<button class="contact" onclick="openPage('contacts')">Emergency Contacts</button>
-
-</div>
-</div>
-
-<!-- FIRE -->
-<div id="fire" class="page">
-<div class="container">
-<div class="card">
-<h2>Engine Room Fire</h2>
-<ol>
-<li>Raise the fire alarm immediately.</li>
-<li>Inform the bridge or instructor.</li>
-<li>Stop fuel supply if safe.</li>
-<li>Close ventilation dampers.</li>
-<li>Use the correct fire extinguisher.</li>
-<li>Proceed to the designated muster station.</li>
-</ol>
-</div>
-<button class="back" onclick="goHome()">Back to Home</button>
-</div>
-</div>
-
-<!-- FLOOD -->
-<div id="flood" class="page">
-<div class="container">
-<div class="card">
-<h2>Flooding Response</h2>
-<ol>
-<li>Report flooding immediately.</li>
-<li>Identify the source of water ingress.</li>
-<li>Close watertight doors.</li>
-<li>Start bilge pumping if instructed.</li>
-<li>Monitor compartment water level.</li>
-<li>Wait for further instructions.</li>
-</ol>
-</div>
-<button class="back" onclick="goHome()">Back to Home</button>
-</div>
-</div>
-
-<!-- BLACKOUT -->
-<div id="blackout" class="page">
-<div class="container">
-<div class="card">
-<h2>Engine Room Blackout</h2>
-<ol>
-<li>Stay calm and maintain communication.</li>
-<li>Check emergency lighting.</li>
-<li>Start the emergency generator if required.</li>
-<li>Restore essential systems safely.</li>
-<li>Record the incident after recovery.</li>
-</ol>
-</div>
-<button class="back" onclick="goHome()">Back to Home</button>
-</div>
-</div>
-
-<!-- FIRST AID -->
-<div id="firstaid" class="page">
-<div class="container">
-<div class="card">
-<h2>Basic First Aid</h2>
-<ol>
-<li>Ensure the scene is safe.</li>
-<li>Check responsiveness.</li>
-<li>Call for medical assistance.</li>
-<li>Control severe bleeding with pressure.</li>
-<li>Cool burns with clean running water.</li>
-<li>Do not move seriously injured persons unless necessary.</li>
-</ol>
-</div>
-<button class="back" onclick="goHome()">Back to Home</button>
-</div>
-</div>
-
-<!-- CONTACTS -->
-<div id="contacts" class="page">
-<div class="container">
-<div class="card">
-<h2>Emergency Contacts</h2>
-
-<div class="contact-box">
-<strong>School Clinic</strong><br>
-(Insert Clinic Number)
-</div>
-
-<div class="contact-box">
-<strong>Security Office</strong><br>
-(Insert Security Number)
-</div>
-
-<div class="contact-box">
-<strong>Laboratory Instructor</strong><br>
-(Insert Instructor Number)
-</div>
-
-<div class="contact-box">
-<strong>Philippine Emergency Hotline</strong><br>
-911
-</div>
-
-</div>
-<button class="back" onclick="goHome()">Back to Home</button>
-</div>
-</div>
-
-<footer>
-QR Code-Based Emergency Response Information System
-</footer>
 
 <script>
-function openPage(id){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-window.scrollTo(0,0);
-}
-function goHome(){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById('home').classList.add('active');
+function show(id){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(id).classList.add("active");
 window.scrollTo(0,0);
 }
 </script>
 
+</head>
+<body>
+
+<header>
+<h1>🛡 AIMS SafeCampus</h1>
+<p>QR Code–Based Disaster & Risk Awareness Information System</p>
+</header>
+
+<!-- HOME -->
+<div class="page active" id="home">
+<div class="container">
+
+<div class="card">
+<h2>Welcome</h2>
+<p>This system provides emergency procedures for natural disasters, accidents, hazards, and school emergencies. Learn the correct actions that can help protect lives.</p>
+<div class="badge">Asian Institute of Maritime Studies</div>
+</div>
+
+<div class="grid">
+
+<div class="menu red" onclick="show('fire')">
+<span>🔥</span>
+Fire
+</div>
+
+<div class="menu orange" onclick="show('earthquake')">
+<span>🌎</span>
+Earthquake
+</div>
+
+<div class="menu blue" onclick="show('flood')">
+<span>🌊</span>
+Flood
+</div>
+
+<div class="menu green" onclick="show('firstaid')">
+<span>❤️</span>
+First Aid
+</div>
+
+<div class="menu purple" onclick="show('typhoon')">
+<span>🌪</span>
+Typhoon
+</div>
+
+<div class="menu gray" onclick="show('security')">
+<span>🚨</span>
+Security
+</div>
+
+</div>
+
+<div class="card">
+<h2>⚠ Daily Safety Reminder</h2>
+<ul>
+<li>Know the nearest emergency exit.</li>
+<li>Keep hallways and stairs clear.</li>
+<li>Report hazards immediately.</li>
+<li>Participate in evacuation drills.</li>
+<li>Stay calm during emergencies.</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+<!-- EARTHQUAKE -->
+<div class="page" id="earthquake">
+<div class="container">
+<div class="card">
+<h2>🌎 Earthquake Response</h2>
+
+<h3>During the shaking</h3>
+<ul>
+<li><b>DROP</b> to your hands and knees.</li>
+<li><b>COVER</b> your head under a sturdy desk.</li>
+<li><b>HOLD ON</b> until the shaking stops.</li>
+<li>Stay away from windows and shelves.</li>
+</ul>
+
+<h3>After the shaking</h3>
+<ul>
+<li>Evacuate calmly using the stairs.</li>
+<li>Do not use elevators.</li>
+<li>Proceed to the designated assembly area.</li>
+<li>Expect aftershocks and stay alert.</li>
+</ul>
+
+<div class="warning">
+<b>Remember:</b> Drop • Cover • Hold is the safest earthquake procedure.
+</div>
+</div>
+<button class="back" onclick="show('home')">Back Home</button>
+</div>
+</div>
+
+<!-- FIRE -->
+<div class="page" id="fire">
+<div class="container">
+<div class="card">
+<h2>🔥 Fire Emergency</h2>
+
+<h3>What to do</h3>
+<ul>
+<li>Activate the nearest fire alarm.</li>
+<li>Leave the room immediately.</li>
+<li>Close the door behind you.</li>
+<li>Stay low if smoke is present.</li>
+<li>Follow evacuation signs to the assembly area.</li>
+</ul>
+
+<h3>PASS Method</h3>
+<ul>
+<li>🅿 Pull the safety pin.</li>
+<li>🅰 Aim at the base of the fire.</li>
+<li>🆂 Squeeze the handle.</li>
+<li>🆂 Sweep side to side.</li>
+</ul>
+
+<div class="danger">
+<b>Never:</b> Use elevators, panic, or return for personal belongings.
+</div>
+</div>
+<button class="back" onclick="show('home')">Back Home</button>
+</div>
+</div>
+
+<!-- FLOOD -->
+<div class="page" id="flood">
+<div class="container">
+<div class="card">
+<h2>🌊 Flood Safety</h2>
+
+<h3>Before flooding</h3>
+<ul>
+<li>Monitor weather advisories.</li>
+<li>Prepare your emergency kit.</li>
+<li>Charge your mobile phone.</li>
+</ul>
+
+<h3>During flooding</h3>
+<ul>
+<li>Move to higher ground.</li>
+<li>Avoid walking through floodwater.</li>
+<li>Keep away from electrical wires.</li>
+<li>Follow evacuation instructions.</li>
+</ul>
+
+<div class="warning">
+Floodwater may contain hidden holes, debris, and live electricity.
+</div>
+</div>
+<button class="back" onclick="show('home')">Back Home</button>
+</div>
+</div>
+
+<!-- TYPHOON -->
+<div class="page" id="typhoon">
+<div class="container">
+<div class="card">
+<h2>🌪 Typhoon Preparedness</h2>
+
+<h3>Before</h3>
+<ul>
+<li>Monitor PAGASA updates.</li>
+<li>Secure loose objects.</li>
+<li>Prepare food, water, flashlight, and power bank.</li>
+</ul>
+
+<h3>During</h3>
+<ul>
+<li>Stay inside the building.</li>
+<li>Keep away from glass windows.</li>
+<li>Follow school suspension announcements.</li>
+</ul>
+
+<h3>After</h3>
+<ul>
+<li>Beware of fallen wires and damaged structures.</li>
+<li>Wait for official clearance before returning.</li>
+</ul>
+</div>
+<button class="back" onclick="show('home')">Back Home</button>
+</div>
+</div>
+
+<!-- FIRST AID -->
+<div class="page" id="firstaid">
+<div class="container">
+<div class="card">
+<h2>❤️ Basic First Aid</h2>
+
+<h3>Primary Response</h3>
+<ul>
+<li>Ensure the area is safe.</li>
+<li>Call the school clinic immediately.</li>
+<li>Check if the person is responsive.</li>
+<li>Control severe bleeding using direct pressure.</li>
+<li>Keep the victim calm until help arrives.</li>
+</ul>
+
+<h3>Burns</h3>
+<ul>
+<li>Cool with running water for 20 minutes.</li>
+<li>Cover with a clean cloth.</li>
+<li>Do not apply toothpaste, oil, or ice.</li>
+</ul>
+
+<h3>Fainting</h3>
+<ul>
+<li>Lay the person flat.</li>
+<li>Elevate the legs slightly.</li>
+<li>Seek medical assistance.</li>
+</ul>
+</div>
+<button class="back" onclick="show('home')">Back Home</button>
+</div>
+</div>
+
+<!-- SECURITY -->
+<div class="page" id="security">
+<div class="container">
+<div class="card">
+<h2>🚨 Security Incident</h2>
+
+<h3>RUN • HIDE • REPORT</h3>
+
+<ul>
+<li><b>RUN</b> if there is a safe escape route.</li>
+<li><b>HIDE</b> by locking or barricading the room.</li>
+<li><b>SILENCE</b> your phone while hiding.</li>
+<li><b>REPORT</b> the incident when it is safe.</li>
+</ul>
+
+<div class="warning">
+Remain calm and follow instructions from school authorities.
+</div>
+</div>
+
+<div class="card">
+<h2>📞 Emergency Contacts</h2>
+
+<div class="contact">
+<b>🏥 School Clinic</b><br>
+Insert clinic number
+</div>
+
+<div class="contact">
+<b>🛡 Security Office</b><br>
+Insert security hotline
+</div>
+
+<div class="contact">
+<b>👨‍🏫 DRRM Coordinator</b><br>
+Insert office number
+</div>
+
+<div class="contact">
+<b>☎ National Emergency Hotline</b><br>
+911
+</div>
+
+</div>
+<button class="back" onclick="show('home')">Back Home</button>
+</div>
+</div>
+
+<footer>
+AIMS SafeCampus Version 2 • Disaster Risk Reduction & Emergency Preparedness
+</footer>
+
 </body>
-</html>
+                                 </html>
