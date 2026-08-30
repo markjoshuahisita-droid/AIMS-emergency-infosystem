@@ -3,479 +3,714 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AIMS SafeCampus Version 2</title>
+<meta name="theme-color" content="#062b52">
+<meta name="description" content="AIMS SafeCampus - Disaster, risk awareness, emergency preparedness and safety information system.">
+<title>AIMS SafeCampus | Disaster & Risk Awareness</title>
+
+<!-- QR code generator -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,Helvetica,sans-serif;
+:root{
+  --navy:#062b52;
+  --blue:#0b63ce;
+  --blue2:#1b8cf2;
+  --red:#e3262e;
+  --green:#159447;
+  --orange:#f3a600;
+  --purple:#6846d9;
+  --teal:#159b9b;
+  --bg:#f4f8fc;
+  --card:#ffffff;
+  --text:#12243a;
+  --muted:#607187;
+  --line:#dfe8f1;
+  --shadow:0 10px 30px rgba(13,46,78,.10);
 }
-
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-background:#eef3f8;
-color:#222;
+  margin:0;
+  font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+button,input{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+
+/* TOP BAR */
+.topbar{
+  position:sticky;top:0;z-index:1000;
+  height:72px;background:rgba(6,43,82,.97);
+  color:white;display:flex;align-items:center;
+  padding:0 24px;box-shadow:0 3px 18px rgba(0,0,0,.18);
+}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand img{
+  width:48px;height:48px;border-radius:9px;object-fit:contain;
+  background:white;padding:3px;
+}
+.brand-text{min-width:0}
+.brand-text h1{font-size:21px;margin:0;letter-spacing:.2px}
+.brand-text p{font-size:11px;margin:3px 0 0;color:#d8e8f8}
+.nav{
+  margin-left:auto;display:flex;gap:6px;align-items:center
+}
+.nav button{
+  border:0;background:transparent;color:#dcecff;
+  padding:10px 12px;border-radius:9px;font-weight:600
+}
+.nav button:hover,.nav button.active{background:rgba(255,255,255,.13);color:white}
+.menu-btn{display:none;background:transparent;border:0;color:white;font-size:27px}
+
+/* HERO */
+.hero{
+  min-height:370px;
+  display:grid;grid-template-columns:1.08fr .92fr;
+  align-items:center;gap:25px;
+  padding:50px max(24px,5vw);
+  background:
+    linear-gradient(90deg,rgba(244,248,252,.97) 0%,rgba(244,248,252,.92) 47%,rgba(244,248,252,.25) 100%),
+    url('PAGE_BACKGROUND.jpg') center/cover no-repeat;
+  border-bottom:1px solid var(--line);
+}
+.hero h2{
+  font-size:clamp(34px,5vw,58px);line-height:1.03;
+  margin:0 0 18px;color:#081e34
+}
+.hero h2 span{color:var(--blue)}
+.hero p{font-size:17px;line-height:1.65;max-width:680px;color:#31445b}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.btn{
+  border:0;border-radius:12px;padding:13px 18px;
+  font-weight:800;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-primary{background:var(--blue);color:white}
+.btn-danger{background:var(--red);color:white}
+.btn-light{background:white;color:var(--navy);border:1px solid var(--line)}
+.hero-panel{
+  justify-self:end;background:rgba(255,255,255,.9);
+  border:1px solid white;border-radius:22px;padding:22px;
+  max-width:390px;box-shadow:var(--shadow);backdrop-filter:blur(8px)
+}
+.hero-panel .mini{display:flex;gap:13px;align-items:center;margin:12px 0}
+.mini-icon{width:44px;height:44px;border-radius:12px;background:#e9f3ff;display:grid;place-items:center;font-size:22px}
+.hero-panel strong{display:block}.hero-panel small{color:var(--muted)}
+
+/* EMERGENCY STRIP */
+.emergency{
+  margin:-24px auto 25px;max-width:1180px;position:relative;z-index:3;
+  padding:18px 20px;background:var(--red);color:white;border-radius:18px;
+  box-shadow:0 12px 30px rgba(227,38,46,.25);
+  display:flex;align-items:center;gap:20px
+}
+.emergency-title{font-size:20px;font-weight:900;min-width:180px}
+.emergency-title small{display:block;font-size:12px;font-weight:500;margin-top:4px}
+.emergency-actions{display:flex;gap:9px;flex-wrap:wrap}
+.emergency-actions button{
+  border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.12);
+  color:white;border-radius:10px;padding:10px 13px;font-weight:700
+}
+.emergency-actions button:hover{background:white;color:var(--red)}
+
+/* MAIN */
+main{max-width:1180px;margin:auto;padding:0 20px 60px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:28px 0 15px}
+.section-head h2{margin:0;font-size:25px;color:var(--navy)}
+.section-head p{margin:5px 0 0;color:var(--muted)}
+.search{
+  width:min(390px,100%);border:1px solid var(--line);
+  background:white;border-radius:12px;padding:12px 15px;outline:none
+}
+.search:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(11,99,206,.1)}
+
+.disaster-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:15px
+}
+.disaster-card{
+  background:var(--card);border:1px solid var(--line);border-radius:17px;
+  padding:18px;box-shadow:0 5px 18px rgba(20,55,90,.06);
+  transition:.2s;position:relative;overflow:hidden
+}
+.disaster-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.disaster-card .top{display:flex;align-items:center;gap:13px}
+.disaster-card img{
+  width:58px;height:58px;object-fit:cover;border-radius:14px
+}
+.disaster-card h3{margin:0;font-size:18px}
+.disaster-card p{margin:5px 0 14px;color:var(--muted);font-size:13px;line-height:1.45}
+.learn{
+  border:0;background:#edf5ff;color:var(--blue);padding:9px 12px;border-radius:9px;font-weight:800
 }
 
-header{
-background:linear-gradient(135deg,#003366,#0A58CA);
-color:white;
-padding:22px;
-text-align:center;
+/* FEATURE ROW */
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.feature{
+  background:white;border:1px solid var(--line);border-radius:17px;
+  padding:20px;box-shadow:0 5px 18px rgba(20,55,90,.06)
+}
+.feature h3{margin:0 0 7px;color:var(--navy)}
+.feature p{color:var(--muted);line-height:1.55}
+.map-box{
+  margin-top:14px;border-radius:13px;overflow:hidden;
+  background:linear-gradient(135deg,#dceefe,#f6fbff);
+  min-height:145px;display:grid;place-items:center;color:var(--blue);font-weight:900;
+  border:1px dashed #9ec9f6
+}
+.status-row{display:grid;gap:8px;margin-top:13px}
+.status-row button{
+  background:white;border:1px solid var(--line);padding:11px 13px;
+  border-radius:10px;text-align:left;font-weight:700;color:#29415a
+}
+.status-row button:hover{border-color:var(--blue);color:var(--blue)}
+.status-message{margin-top:10px;font-size:13px;color:var(--green);font-weight:700}
+
+/* CONTENT PAGE */
+.content-view{display:none}
+.content-view.active{display:block}
+.content-hero{
+  background:white;border:1px solid var(--line);border-radius:20px;
+  overflow:hidden;box-shadow:var(--shadow);margin-top:25px
+}
+.content-hero img{width:100%;max-height:390px;object-fit:cover;display:block}
+.content-body{padding:25px}
+.content-body h2{margin:0 0 7px;color:var(--navy);font-size:30px}
+.content-body .lead{color:var(--muted);font-size:15px;line-height:1.6}
+.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.step{
+  border:1px solid var(--line);border-radius:13px;padding:15px;background:#fbfdff
+}
+.step b{display:flex;gap:9px;align-items:center;color:var(--navy)}
+.num{
+  width:29px;height:29px;border-radius:50%;display:grid;place-items:center;
+  background:#e6f1ff;color:var(--blue);font-weight:900
+}
+.step p{margin:9px 0 0;color:#52667b;font-size:13px;line-height:1.5}
+.content-warning{
+  background:#fff7df;border-left:5px solid var(--orange);
+  padding:13px 15px;border-radius:9px;margin-top:18px;color:#5d4a1d
 }
 
-header h1{
-font-size:24px;
+/* SEARCH RESULTS */
+#searchResults{display:none;margin-top:15px}
+.result{
+  background:white;border:1px solid var(--line);border-radius:12px;
+  padding:13px;margin-bottom:8px
+}
+.result b{color:var(--navy)} .result small{display:block;color:var(--muted);margin-top:3px}
+
+/* FOOTER */
+footer{background:var(--navy);color:#dcecff;text-align:center;padding:25px 18px;font-size:12px}
+footer strong{color:white}
+
+/* FLOATING QR */
+.qr-float{
+  position:fixed;right:18px;bottom:18px;z-index:900;
+  width:178px;background:white;border:1px solid var(--line);
+  border-radius:16px;padding:11px;box-shadow:0 12px 35px rgba(0,0,0,.22);
+}
+.qr-title{font-weight:900;color:var(--navy);font-size:12px;text-align:center;margin-bottom:7px}
+#qrcode{display:grid;place-items:center}
+#qrcode img{width:125px;height:125px}
+.qr-float small{display:block;text-align:center;color:var(--muted);font-size:9px;margin-top:6px}
+.qr-toggle{
+  position:absolute;right:-9px;top:-9px;width:26px;height:26px;
+  border-radius:50%;border:2px solid white;background:var(--navy);color:white;font-weight:900
 }
 
-header p{
-font-size:13px;
-margin-top:5px;
+/* MODAL */
+.modal{
+  display:none;position:fixed;inset:0;background:rgba(2,17,31,.65);
+  z-index:2000;padding:20px;align-items:center;justify-content:center
 }
-
-.page{
-display:none;
+.modal.show{display:flex}
+.modal-card{
+  background:white;width:min(650px,100%);max-height:90vh;overflow:auto;
+  border-radius:20px;padding:24px;position:relative
 }
-
-.page.active{
-display:block;
+.close{
+  position:absolute;right:16px;top:13px;border:0;background:#edf2f7;
+  border-radius:50%;width:35px;height:35px;font-size:20px
 }
+.modal-card h2{color:var(--navy);margin-top:0}
+.modal-card p,.modal-card li{color:#4d6176;line-height:1.6}
 
-.container{
-padding:16px;
+/* RESPONSIVE */
+@media(max-width:900px){
+  .nav{display:none}.menu-btn{display:block;margin-left:auto}
+  .nav.open{display:flex;position:absolute;top:72px;left:0;right:0;background:var(--navy);padding:10px 18px;flex-direction:column;align-items:stretch}
+  .hero{grid-template-columns:1fr;min-height:0;padding-top:38px}
+  .hero-panel{justify-self:stretch;max-width:none}
+  .disaster-grid{grid-template-columns:repeat(2,1fr)}
+  .emergency{margin:0 15px 22px;flex-direction:column;align-items:stretch}
 }
-
-.home{
-background:url('PAGE_BACKGROUND22.jpg') center/cover no-repeat;
-min-height:100vh;
-}
-
-.overlay{
-background:rgba(255,255,255,.90);
-min-height:100vh;
-padding:16px;
-}
-
-.card{
-background:white;
-border-radius:16px;
-padding:18px;
-margin-bottom:16px;
-box-shadow:0 4px 10px rgba(0,0,0,.10);
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:14px;
-margin-top:16px;
-}
-
-.menu{
-background:white;
-border-radius:16px;
-padding:15px 10px;
-text-align:center;
-box-shadow:0 3px 8px rgba(0,0,0,.12);
-cursor:pointer;
-}
-
-.menu img{
-width:60px;
-height:60px;
-object-fit:contain;
-margin-bottom:8px;
-}
-
-.menu h3{
-font-size:14px;
-color:#003366;
-}
-
-.section-image{
-width:100%;
-border-radius:14px;
-margin:12px 0;
-}
-
-h2{
-color:#003366;
-margin-bottom:8px;
-}
-
-h3{
-color:#0A58CA;
-margin:12px 0 6px;
-}
-
-ul{
-padding-left:20px;
-}
-
-li{
-margin:8px 0;
-line-height:1.5;
-}
-
-.note{
-background:#FFF3CD;
-border-left:5px solid orange;
-padding:12px;
-border-radius:8px;
-margin-top:12px;
-}
-
-.danger{
-background:#FDECEC;
-border-left:5px solid #D62828;
-padding:12px;
-border-radius:8px;
-margin-top:12px;
-}
-
-.back{
-width:100%;
-padding:14px;
-background:#003366;
-color:white;
-border:none;
-border-radius:12px;
-font-size:16px;
-font-weight:bold;
-margin-top:10px;
-}
-
-.contact{
-background:#F3F4F6;
-padding:12px;
-border-radius:10px;
-margin:10px 0;
-}
-
-footer{
-text-align:center;
-padding:18px;
-font-size:12px;
-color:#555;
+@media(max-width:600px){
+  .topbar{padding:0 13px;height:66px}
+  .brand img{width:42px;height:42px}.brand-text h1{font-size:18px}.brand-text p{font-size:9px}
+  .hero{padding:30px 17px}
+  .hero h2{font-size:36px}.hero p{font-size:14px}
+  main{padding:0 13px 45px}
+  .disaster-grid,.feature-grid,.steps{grid-template-columns:1fr}
+  .section-head{align-items:stretch;flex-direction:column}
+  .search{width:100%}
+  .emergency{margin:0 8px 18px;padding:15px}
+  .emergency-title{min-width:0}
+  .qr-float{width:145px;right:10px;bottom:10px}
+  #qrcode img{width:100px;height:100px}
 }
 </style>
-
-<script>
-function openPage(id){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-window.scrollTo(0,0);
-}
-
-function home(){
-openPage('home');
-}
-</script>
-
 </head>
 
 <body>
 
-<header>
-<h1>AIMS SafeCampus</h1>
-<p>Disaster & Risk Awareness Information System</p>
+<header class="topbar">
+  <div class="brand">
+    <img src="AIMS_LOGO.jpg" alt="AIMS Logo" onerror="this.style.display='none'">
+    <div class="brand-text">
+      <h1>AIMS SafeCampus</h1>
+      <p>Disaster & Risk Awareness Information System</p>
+    </div>
+  </div>
+  <button class="menu-btn" onclick="toggleNav()" aria-label="Open menu">☰</button>
+  <nav class="nav" id="nav">
+    <button class="active" onclick="goHome()">Home</button>
+    <button onclick="showAbout()">About</button>
+    <button onclick="showContacts()">Emergency Contacts</button>
+  </nav>
 </header>
 
 <!-- HOME -->
-<div class="page active home" id="home">
-
-<div class="overlay">
-
-<div class="card">
-<h2>Welcome!</h2>
-<p>
-Scan one QR code to instantly access emergency procedures,
-hazard awareness, and disaster response guidelines for the AIMS community.
-</p>
-</div>
-
-<div class="grid">
-
-<div class="menu" onclick="openPage('fire')">
-<img src="FIRE_ICON.jpg">
-<h3>Fire</h3>
-</div>
-
-<div class="menu" onclick="openPage('earthquake')">
-<img src="EARTHQUAKE_ICON.jpg">
-<h3>Earthquake</h3>
-</div>
-
-<div class="menu" onclick="openPage('flood')">
-<img src="FLOOD_ICON.jpg">
-<h3>Flood</h3>
-</div>
-
-<div class="menu" onclick="openPage('firstaid')">
-<img src="FIRSTAID_ICON2.jpg">
-<h3>First Aid</h3>
-</div>
-
-<div class="menu" onclick="openPage('typhoon')">
-<img src="TYPHOON_ICON.jpg">
-<h3>Typhoon</h3>
-</div>
-
-<div class="menu" onclick="openPage('security')">
-<img src="SECURITY_ICON.jpg">
-<h3>Security</h3>
-</div>
-
-</div>
-
-<div class="card">
-<h2>Daily Safety Reminder</h2>
-<ul>
-<li>Know your nearest emergency exit.</li>
-<li>Keep hallways and stairways clear.</li>
-<li>Report hazards immediately.</li>
-<li>Participate in evacuation drills.</li>
-<li>Stay calm during emergencies.</li>
-</ul>
-</div>
-
-</div>
-</div>
-
-<!-- FIRE -->
-<div class="page" id="fire">
-<div class="container">
-<div class="card">
-
-<h2>Fire Emergency</h2>
-
-<img src="FIRE_CONTENT2.jpeg" class="section-image">
-
-<h3>What to do</h3>
-
-<ul>
-<li>Activate the nearest fire alarm.</li>
-<li>Evacuate immediately using the nearest exit.</li>
-<li>Stay low if smoke is present.</li>
-<li>Close doors behind you.</li>
-<li>Proceed to the designated assembly area.</li>
-</ul>
-
-<h3>PASS Method</h3>
-
-<ul>
-<li><b>P</b> – Pull the safety pin.</li>
-<li><b>A</b> – Aim at the base of the fire.</li>
-<li><b>S</b> – Squeeze the handle.</li>
-<li><b>S</b> – Sweep side to side.</li>
-</ul>
-
-<div class="danger">
-Never use elevators or return for personal belongings.
-</div>
-
-</div>
-
-<button class="back" onclick="home()">Back Home</button>
-</div>
-</div>
-
-<!-- EARTHQUAKE -->
-<div class="page" id="earthquake">
-<div class="container">
-<div class="card">
-
-<h2>Earthquake Response</h2>
-
-<img src="EARTHQUAKE_CONTENT2.jpeg" class="section-image">
-
-<h3>During the shaking</h3>
-
-<ul>
-<li>DROP to your hands and knees.</li>
-<li>COVER your head under a sturdy desk.</li>
-<li>HOLD ON until shaking stops.</li>
-<li>Stay away from windows and glass.</li>
-</ul>
-
-<h3>After the shaking</h3>
-
-<ul>
-<li>Evacuate calmly using the stairs.</li>
-<li>Do not use elevators.</li>
-<li>Go to the designated assembly area.</li>
-<li>Prepare for aftershocks.</li>
-</ul>
-
-<div class="note">
-Remember: Drop • Cover • Hold
-</div>
-
-</div>
-
-<button class="back" onclick="home()">Back Home</button>
-</div>
-</div>
-
-<!-- FLOOD -->
-<div class="page" id="flood">
-<div class="container">
-<div class="card">
-
-<h2>Flood Safety</h2>
-
-<img src="FLOOD_CONTENT2.jpeg" class="section-image">
-
-<h3>Safety Procedure</h3>
-
-<ul>
-<li>Move to higher ground immediately.</li>
-<li>Avoid walking through floodwater.</li>
-<li>Keep away from electrical wires.</li>
-<li>Follow evacuation announcements.</li>
-<li>Wait for official clearance.</li>
-</ul>
-
-<div class="note">
-Floodwater may contain hidden debris and live electricity.
-</div>
-
-</div>
-
-<button class="back" onclick="home()">Back Home</button>
-</div>
-</div>
-
-<!-- FIRST AID -->
-<div class="page" id="firstaid">
-<div class="container">
-<div class="card">
-
-<h2>Basic First Aid</h2>
-
-<img src="FIRSTAID_CONTENT2.jpeg" class="section-image">
-
-<h3>Primary Response</h3>
-
-<ul>
-<li>Ensure the area is safe.</li>
-<li>Call the school clinic.</li>
-<li>Check responsiveness.</li>
-<li>Control severe bleeding.</li>
-<li>Keep the victim calm.</li>
-</ul>
-
-<h3>For Burns</h3>
-
-<ul>
-<li>Cool with running water for 20 minutes.</li>
-<li>Cover with a clean cloth.</li>
-<li>Do not apply toothpaste or ice.</li>
-</ul>
-
-</div>
-
-<button class="back" onclick="home()">Back Home</button>
-</div>
-</div>
-
-<!-- TYPHOON -->
-<div class="page" id="typhoon">
-<div class="container">
-<div class="card">
-
-<h2>Typhoon Preparedness</h2>
-
-<img src="TYPHOON_CONTENT2.jpeg" class="section-image">
-
-<h3>Before</h3>
-
-<ul>
-<li>Monitor PAGASA weather updates.</li>
-<li>Prepare emergency supplies.</li>
-<li>Charge communication devices.</li>
-</ul>
-
-<h3>During</h3>
-
-<ul>
-<li>Stay indoors.</li>
-<li>Avoid windows and damaged structures.</li>
-<li>Follow school advisories.</li>
-</ul>
-
-<h3>After</h3>
-
-<ul>
-<li>Beware of fallen power lines.</li>
-<li>Wait for official clearance.</li>
-</ul>
-
-</div>
-
-<button class="back" onclick="home()">Back Home</button>
-</div>
-</div>
-
-<!-- SECURITY -->
-<div class="page" id="security">
-<div class="container">
-<div class="card">
-
-<h2>Security Incident</h2>
-
-<img src="SECURITY_CONTENT2.jpeg" class="section-image">
-
-<h3>RUN • HIDE • REPORT</h3>
-
-<ul>
-<li><b>RUN</b> if a safe escape route exists.</li>
-<li><b>HIDE</b> by locking or barricading the room.</li>
-<li>Silence your mobile phone.</li>
-<li><b>REPORT</b> the incident when it is safe.</li>
-</ul>
-
-<div class="note">
-Remain calm and follow school authorities.
-</div>
-
-</div>
-
-<div class="card">
-
-<h2>Emergency Contacts</h2>
-
-<div class="contact">
-<b>School Clinic</b><br>
-Insert Clinic Number
-</div>
-
-<div class="contact">
-<b>Security Office</b><br>
-Insert Security Hotline
-</div>
-
-<div class="contact">
-<b>DRRM Coordinator</b><br>
-Insert Office Number
-</div>
-
-<div class="contact">
-<b>National Emergency Hotline</b><br>
-911
-</div>
-
-</div>
-
-<button class="back" onclick="home()">Back Home</button>
-
-</div>
-</div>
+<section id="homeView">
+  <div class="hero">
+    <div>
+      <h2>Stay informed.<br>Stay prepared.<br><span>Stay safe.</span></h2>
+      <p>
+        A quick-access school safety system for emergency procedures,
+        disaster preparedness, hazard awareness, first aid guidance,
+        and campus emergency information.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-danger" onclick="scrollToId('emergencyBar')">🚨 Emergency Now</button>
+        <button class="btn btn-light" onclick="scrollToId('disasters')">Explore Safety Guides</button>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <strong>⚡ Quick safety principle</strong>
+      <div class="mini"><div class="mini-icon">👀</div><div><strong>Stay alert</strong><small>Notice unsafe conditions early.</small></div></div>
+      <div class="mini"><div class="mini-icon">🧭</div><div><strong>Know your route</strong><small>Locate exits and assembly areas.</small></div></div>
+      <div class="mini"><div class="mini-icon">📣</div><div><strong>Report hazards</strong><small>Tell authorized school personnel.</small></div></div>
+    </div>
+  </div>
+
+  <div class="emergency" id="emergencyBar">
+    <div class="emergency-title">🚨 EMERGENCY NOW<small>If there is immediate danger, call the appropriate emergency service and follow school procedures.</small></div>
+    <div class="emergency-actions">
+      <button onclick="window.location.href='tel:911'">☎ Call 911</button>
+      <button onclick="showContacts()">🏥 Medical Help</button>
+      <button onclick="openGuide('fire')">🔥 Fire</button>
+      <button onclick="openGuide('security')">🛡 Security</button>
+    </div>
+  </div>
+
+  <main>
+    <div class="section-head" id="disasters">
+      <div>
+        <h2>What should I do?</h2>
+        <p>Choose an emergency or hazard to see concise response guidance.</p>
+      </div>
+      <input class="search" id="searchBox" placeholder="🔎 Search: fire, earthquake, flood..." oninput="searchGuides(this.value)">
+    </div>
+
+    <div id="searchResults"></div>
+
+    <div class="disaster-grid" id="guideGrid">
+
+      <article class="disaster-card" data-keywords="fire smoke burning evacuation extinguisher">
+        <div class="top"><img src="FIRE_ICON.jpg" alt="Fire icon"><div><h3>Fire</h3><p>Evacuation and fire safety.</p></div></div>
+        <button class="learn" onclick="openGuide('fire')">View guide →</button>
+      </article>
+
+      <article class="disaster-card" data-keywords="earthquake shaking tremor drop cover hold">
+        <div class="top"><img src="EARTHQUAKE_ICON.jpg" alt="Earthquake icon"><div><h3>Earthquake</h3><p>Protect yourself during shaking.</p></div></div>
+        <button class="learn" onclick="openGuide('earthquake')">View guide →</button>
+      </article>
+
+      <article class="disaster-card" data-keywords="flood rain water floodwater electricity">
+        <div class="top"><img src="FLOOD_ICON.jpg" alt="Flood icon"><div><h3>Flood</h3><p>Heavy rain and flood safety.</p></div></div>
+        <button class="learn" onclick="openGuide('flood')">View guide →</button>
+      </article>
+
+      <article class="disaster-card" data-keywords="first aid injury bleeding burn faint cpr">
+        <div class="top"><img src="FIRSTAID_ICON.jpg" alt="First aid icon"><div><h3>First Aid</h3><p>Immediate basic response.</p></div></div>
+        <button class="learn" onclick="openGuide('firstaid')">View guide →</button>
+      </article>
+
+      <article class="disaster-card" data-keywords="typhoon storm wind rain pagasa">
+        <div class="top"><img src="TYPHOON_ICON.jpg" alt="Typhoon icon"><div><h3>Typhoon</h3><p>Prepare, respond and recover.</p></div></div>
+        <button class="learn" onclick="openGuide('typhoon')">View guide →</button>
+      </article>
+
+      <article class="disaster-card" data-keywords="security threat violence suspicious person lockdown">
+        <div class="top"><img src="SECURITY_ICON.jpg" alt="Security icon"><div><h3>Security</h3><p>Personal safety and threats.</p></div></div>
+        <button class="learn" onclick="openGuide('security')">View guide →</button>
+      </article>
+
+      <article class="disaster-card" data-keywords="electrical electric shock wire power">
+        <div class="top"><div style="width:58px;height:58px;border-radius:14px;background:#ffefc7;display:grid;place-items:center;font-size:30px">⚡</div><div><h3>Electrical Hazard</h3><p>Shock, exposed wires and power hazards.</p></div></div>
+        <button class="learn" onclick="openGuide('electrical')">View guide →</button>
+      </article>
+
+      <article class="disaster-card" data-keywords="chemical spill laboratory fumes chemical">
+        <div class="top"><div style="width:58px;height:58px;border-radius:14px;background:#e9dcff;display:grid;place-items:center;font-size:30px">🧪</div><div><h3>Chemical Spill</h3><p>Laboratory and hazardous substance response.</p></div></div>
+        <button class="learn" onclick="openGuide('chemical')">View guide →</button>
+      </article>
+
+      <article class="disaster-card" data-keywords="heat illness dehydration hot weather">
+        <div class="top"><div style="width:58px;height:58px;border-radius:14px;background:#ffe0df;display:grid;place-items:center;font-size:30px">🌡️</div><div><h3>Heat Emergency</h3><p>Heat exhaustion and heat illness awareness.</p></div></div>
+        <button class="learn" onclick="openGuide('heat')">View guide →</button>
+      </article>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <h3>🗺 Campus Safety Map</h3>
+        <p>Replace this area with your official AIMS campus map showing emergency exits, assembly areas, first-aid kits, AEDs, fire extinguishers, and safe zones.</p>
+        <div class="map-box">📍 YOUR OFFICIAL CAMPUS MAP HERE</div>
+        <button class="btn btn-primary" style="margin-top:12px" onclick="showMapInfo()">Open Map Information →</button>
+      </div>
+
+      <div class="feature">
+        <h3>👥 Are you safe?</h3>
+        <p>Use these buttons to indicate your status during an emergency. This demo stores the selection only on this device.</p>
+        <div class="status-row">
+          <button onclick="setStatus('safe')">🟢 Yes, I'm safe</button>
+          <button onclick="setStatus('help')">🟡 I need assistance</button>
+          <button onclick="setStatus('trapped')">🔴 I cannot leave my location</button>
+        </div>
+        <div class="status-message" id="statusMessage"></div>
+      </div>
+    </div>
+
+    <div class="feature" style="margin-top:16px">
+      <h3>📷 Your Uploaded Safety Content</h3>
+      <p>Use your own image as an educational content panel. Replace <b>YOUR_CONTENT.jpg</b> below with your uploaded image filename.</p>
+      <img src="YOUR_CONTENT.jpg" alt="Uploaded safety content" style="width:100%;max-height:420px;object-fit:cover;border-radius:14px;margin-top:8px" onerror="this.style.display='none'">
+    </div>
+
+    <div class="section-head" style="margin-top:30px">
+      <div><h2>Emergency Contacts</h2><p>Replace the school placeholders with verified official contact numbers before deployment.</p></div>
+    </div>
+    <div class="feature-grid">
+      <div class="feature">
+        <h3>📞 AIMS Emergency Directory</h3>
+        <p><b>Campus Security:</b> INSERT OFFICIAL NUMBER</p>
+        <p><b>Campus Clinic:</b> INSERT OFFICIAL NUMBER</p>
+        <p><b>DRRM / Safety Office:</b> INSERT OFFICIAL NUMBER</p>
+        <p><b>Fire / Rescue:</b> Use official local emergency channels</p>
+        <button class="btn btn-danger" onclick="window.location.href='tel:911'">☎ National Emergency: 911</button>
+      </div>
+      <div class="feature">
+        <h3>📢 Daily Safety Reminders</h3>
+        <p>✓ Know at least two ways out of your building.</p>
+        <p>✓ Keep exits, stairs and corridors unobstructed.</p>
+        <p>✓ Never tamper with alarms or safety equipment.</p>
+        <p>✓ Follow trained responders and official school instructions.</p>
+        <p>✓ Report hazards before they become accidents.</p>
+      </div>
+    </div>
+  </main>
+</section>
+
+<!-- CONTENT VIEW -->
+<section id="contentView" class="content-view">
+  <main>
+    <button class="btn btn-light" onclick="goHome()" style="margin-top:20px">← Back to Home</button>
+    <div class="content-hero">
+      <img id="contentImage" src="" alt="">
+      <div class="content-body">
+        <h2 id="contentTitle"></h2>
+        <p class="lead" id="contentLead"></p>
+        <div class="steps" id="contentSteps"></div>
+        <div class="content-warning" id="contentWarning"></div>
+      </div>
+    </div>
+  </main>
+</section>
 
 <footer>
-AIMS SafeCampus Version 2 • QR Code-Based Disaster & Risk Awareness Information System
+  <strong>AIMS SafeCampus Version 3</strong> • QR Code-Based Disaster & Risk Awareness Information System<br>
+  Educational information only. Follow official AIMS emergency plans, trained responders, and government advisories.
 </footer>
 
+<!-- QR -->
+<div class="qr-float" id="qrFloat">
+  <button class="qr-toggle" onclick="toggleQR()">×</button>
+  <div class="qr-title">📱 SCAN FOR SAFETY INFORMATION</div>
+  <div id="qrcode"></div>
+  <small>This QR automatically points to the current webpage.</small>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <button class="close" onclick="closeModal()">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const guides = {
+  fire:{
+    title:"🔥 Fire Emergency",
+    image:"FIRE_CONTENT.jpg",
+    lead:"Fire can spread rapidly. Raise the alarm, evacuate early, and never delay evacuation to collect belongings.",
+    steps:[
+      ["1","Raise the alarm","Activate the nearest fire alarm and alert people nearby if it is safe to do so."],
+      ["2","Evacuate","Use the nearest safe exit. Do not use elevators during a fire emergency."],
+      ["3","Avoid smoke","Stay low if smoke is present and move toward fresh air and a safe exit."],
+      ["4","At the assembly area","Report to the designated assembly point and follow instructions. Do not re-enter until authorized."],
+      ["5","Extinguisher","Only if trained, the fire is small, and a safe escape route remains, use the appropriate extinguisher."],
+      ["6","If clothing catches fire","Stop, drop and roll. Cool burns with clean running water and seek medical help."]
+    ],
+    warning:"Do not fight a growing fire yourself. Your first priority is to get out safely and alert emergency responders."
+  },
+  earthquake:{
+    title:"🌎 Earthquake Response",
+    image:"EARTHQUAKE_CONTENT.jpg",
+    lead:"During strong shaking, protect your head and body first. Most injuries come from falling objects, glass and debris.",
+    steps:[
+      ["1","DROP","Drop to your hands and knees so the shaking is less likely to knock you down."],
+      ["2","COVER","Cover your head and neck and, if possible, shelter under a sturdy desk or table."],
+      ["3","HOLD ON","Hold your shelter until the shaking stops and be ready to move with it."],
+      ["4","Stay away","Keep away from windows, glass, shelves and objects that may fall."],
+      ["5","After shaking","Check yourself and others for injuries, then follow the school's evacuation instructions."],
+      ["6","Expect aftershocks","Remain alert and move away from damaged structures or unsafe areas."]
+    ],
+    warning:"Do not run outside while strong shaking is occurring unless the building itself is immediately unsafe. Follow the designated school earthquake plan."
+  },
+  flood:{
+    title:"🌊 Flood Safety",
+    image:"FLOOD_CONTENT.jpg",
+    lead:"Floodwater can hide open drains, debris, contaminated water and electrical hazards.",
+    steps:[
+      ["1","Monitor","Follow official weather and school advisories."],
+      ["2","Move higher","If flooding threatens your area, move to a safer higher location as instructed."],
+      ["3","Avoid water","Do not walk or drive through moving or unknown floodwater."],
+      ["4","Electricity","Stay away from submerged electrical equipment, outlets and fallen wires."],
+      ["5","Evacuate","Use the route designated by school authorities and bring only essential items if instructed."],
+      ["6","Return safely","Do not enter flooded or damaged buildings until authorities declare them safe."]
+    ],
+    warning:"Never assume shallow floodwater is safe. If you see a fallen electrical wire, keep away and report it immediately."
+  },
+  firstaid:{
+    title:"❤️ Basic First Aid",
+    image:"FIRSTAID_CONTENT.jpg",
+    lead:"First aid is immediate care given until qualified medical help is available. Protect yourself first and call for trained assistance.",
+    steps:[
+      ["1","Check safety","Make sure the scene is safe before approaching the injured person."],
+      ["2","Get help","Alert the school clinic, security or emergency responders as appropriate."],
+      ["3","Severe bleeding","Apply firm direct pressure with clean material and seek urgent medical assistance."],
+      ["4","Burns","Cool a thermal burn with clean running water. Do not apply toothpaste, oil or ice."],
+      ["5","Unresponsive person","Call emergency services. If trained, begin CPR and use an AED when available and appropriate."],
+      ["6","Do not worsen injury","Avoid unnecessary movement of a seriously injured person unless there is an immediate danger."]
+    ],
+    warning:"These are basic awareness steps, not a substitute for formal first-aid or CPR training. Follow your school's trained responders."
+  },
+  typhoon:{
+    title:"🌪 Typhoon Preparedness",
+    image:"TYPHOON_CONTENT.jpg",
+    lead:"Prepare before severe weather arrives. During a typhoon, remain indoors in a safe area and follow official advisories.",
+    steps:[
+      ["1","Monitor","Follow official PAGASA and school announcements."],
+      ["2","Prepare","Keep your phone charged and prepare water, essential medicines and other needed supplies."],
+      ["3","Stay indoors","Remain in a safe interior area away from windows and loose objects."],
+      ["4","Avoid hazards","Stay away from floodwater, damaged structures and fallen power lines."],
+      ["5","Evacuate if instructed","Follow the school's designated evacuation route and assembly instructions."],
+      ["6","After the storm","Wait for official clearance before entering damaged areas or traveling."]
+    ],
+    warning:"A temporary lull in wind does not necessarily mean a typhoon has ended. Continue following official advisories."
+  },
+  security:{
+    title:"🛡 Security / Personal Safety",
+    image:"SECURITY_CONTENT.jpg",
+    lead:"For a security threat, prioritize distance, cover and communication. Follow the specific emergency plan issued by your school.",
+    steps:[
+      ["1","Assess","If you notice a threat, move away from danger when a safe route exists."],
+      ["2","Run","If a safe escape route is available, leave the area and warn others only when doing so does not increase risk."],
+      ["3","Hide","If escape is unsafe, move into a secure location, lock or barricade if possible, silence devices and stay quiet."],
+      ["4","Report","When safe, contact school security or emergency services and provide the location and nature of the threat."],
+      ["5","Follow instructions","Keep hands visible and follow directions from responding authorities."],
+      ["6","Afterward","Do not return to the affected area until authorities give clearance."]
+    ],
+    warning:"Do not confront a violent person or investigate a suspicious object. Keep your distance and report it to trained authorities."
+  },
+  electrical:{
+    title:"⚡ Electrical Hazard",
+    image:"YOUR_CONTENT.jpg",
+    lead:"Electricity can cause shock, burns and fire. Treat exposed wires and damaged equipment as dangerous.",
+    steps:[
+      ["1","Do not touch","Do not touch an exposed wire, sparking equipment or a person in contact with electricity."],
+      ["2","Isolate if safe","If trained and authorized, isolate the power source using the proper procedure."],
+      ["3","Keep away","Prevent others from entering the hazardous area."],
+      ["4","Call help","Notify school personnel, security or emergency responders."],
+      ["5","Electrical injury","Do not approach a victim until the electrical source is safely isolated."],
+      ["6","Report","Have damaged equipment inspected before it is used again."]
+    ],
+    warning:"Never use water on an energized electrical fire. Use the appropriate response specified by trained personnel."
+  },
+  chemical:{
+    title:"🧪 Chemical Spill / Exposure",
+    image:"YOUR_CONTENT.jpg",
+    lead:"Laboratory chemicals can cause burns, poisoning, fire or harmful fumes. Follow the laboratory's specific chemical safety procedure.",
+    steps:[
+      ["1","Alert","Warn people nearby and notify the laboratory instructor or safety personnel."],
+      ["2","Avoid contact","Do not touch or step through the spill."],
+      ["3","Fumes","Move away from harmful vapors and follow the designated ventilation or evacuation procedure."],
+      ["4","Skin exposure","Use the laboratory emergency shower or flushing procedure when appropriate."],
+      ["5","Eye exposure","Use the eyewash station and seek medical attention promptly."],
+      ["6","Do not improvise","Do not mix chemicals or attempt cleanup unless trained and authorized."]
+    ],
+    warning:"The correct response depends on the chemical. Use the Safety Data Sheet (SDS) and your laboratory's approved procedure."
+  },
+  heat:{
+    title:"🌡️ Heat Emergency",
+    image:"YOUR_CONTENT.jpg",
+    lead:"Heat illness can become serious quickly. Move the affected person to a cooler area and get help.",
+    steps:[
+      ["1","Stop activity","Move the person away from heat and allow them to rest."],
+      ["2","Cool","Use cool, wet cloths or other safe cooling methods while help is obtained."],
+      ["3","Hydrate","If fully conscious and able to swallow, give cool water in small amounts."],
+      ["4","Watch symptoms","Confusion, loss of consciousness or worsening condition requires urgent medical help."],
+      ["5","Emergency","Call emergency services for suspected heat stroke or severe symptoms."],
+      ["6","Prevent","Use breaks, shade, hydration and appropriate clothing during hot conditions."]
+    ],
+    warning:"Do not give fluids to an unconscious or confused person. Get emergency medical assistance."
+  }
+};
+
+function toggleNav(){
+  document.getElementById("nav").classList.toggle("open");
+}
+function scrollToId(id){
+  document.getElementById(id)?.scrollIntoView({behavior:"smooth"});
+}
+function goHome(){
+  document.getElementById("homeView").style.display="block";
+  document.getElementById("contentView").classList.remove("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+  closeNav();
+}
+function closeNav(){document.getElementById("nav").classList.remove("open")}
+function openGuide(key){
+  const g=guides[key];
+  if(!g)return;
+  document.getElementById("homeView").style.display="none";
+  const cv=document.getElementById("contentView");
+  cv.classList.add("active");
+  document.getElementById("contentImage").src=g.image;
+  document.getElementById("contentImage").alt=g.title;
+  document.getElementById("contentTitle").textContent=g.title;
+  document.getElementById("contentLead").textContent=g.lead;
+  document.getElementById("contentWarning").innerHTML="<b>⚠ Important:</b> "+g.warning;
+  document.getElementById("contentSteps").innerHTML=g.steps.map(s=>`
+    <div class="step">
+      <b><span class="num">${s[0]}</span>${s[1]}</b>
+      <p>${s[2]}</p>
+    </div>`).join("");
+  closeNav();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function showContacts(){
+  closeNav();
+  document.getElementById("modalContent").innerHTML=`
+    <h2>📞 Emergency Contacts</h2>
+    <p>Replace the placeholders below with verified official AIMS numbers before public deployment.</p>
+    <ul>
+      <li><b>Campus Security:</b> INSERT OFFICIAL NUMBER</li>
+      <li><b>Campus Clinic:</b> INSERT OFFICIAL NUMBER</li>
+      <li><b>DRRM / Safety Office:</b> INSERT OFFICIAL NUMBER</li>
+      <li><b>National Emergency Hotline:</b> <b>911</b></li>
+    </ul>
+    <p><button class="btn btn-danger" onclick="window.location.href='tel:911'">☎ Call 911</button></p>`;
+  document.getElementById("modal").classList.add("show");
+}
+function showAbout(){
+  closeNav();
+  document.getElementById("modalContent").innerHTML=`
+    <h2>🛡 About AIMS SafeCampus</h2>
+    <p>A QR-accessible disaster and risk awareness information system for the AIMS community. It is designed to provide concise, mobile-friendly safety guidance during natural disasters, accidents, hazards and security incidents.</p>
+    <p><b>How it works:</b> Scan the QR code → open the web system → select the emergency → follow the appropriate safety guidance → contact trained responders.</p>
+    <p><b>Important:</b> This website supports awareness and preparedness. It does not replace the official AIMS emergency plan, evacuation instructions, professional medical care, or government emergency advisories.</p>`;
+  document.getElementById("modal").classList.add("show");
+}
+function showMapInfo(){
+  document.getElementById("modalContent").innerHTML=`
+    <h2>🗺 Campus Safety Map</h2>
+    <p>Upload your official AIMS campus safety map and replace the placeholder area in the code.</p>
+    <p>The map should identify, where applicable:</p>
+    <ul>
+      <li>Emergency exits and evacuation routes</li>
+      <li>Assembly / muster areas</li>
+      <li>Fire extinguishers and alarm points</li>
+      <li>First-aid kits and AED locations</li>
+      <li>Security office and clinic</li>
+      <li>Accessible routes and other designated safe areas</li>
+    </ul>`;
+  document.getElementById("modal").classList.add("show");
+}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
+
+function setStatus(status){
+  const text={
+    safe:"Your status is marked: I'M SAFE on this device.",
+    help:"Your status is marked: I NEED ASSISTANCE on this device.",
+    trapped:"Your status is marked: I CANNOT LEAVE MY LOCATION on this device."
+  };
+  document.getElementById("statusMessage").textContent=text[status];
+  localStorage.setItem("aimsSafeStatus",status);
+}
+const saved=localStorage.getItem("aimsSafeStatus");
+if(saved)setStatus(saved);
+
+function searchGuides(value){
+  const q=value.trim().toLowerCase();
+  const cards=[...document.querySelectorAll(".disaster-card")];
+  const results=document.getElementById("searchResults");
+  if(!q){
+    cards.forEach(c=>c.style.display="block");
+    results.style.display="none"; results.innerHTML="";
+    return;
+  }
+  const matches=cards.filter(c=>(c.dataset.keywords+" "+c.innerText).toLowerCase().includes(q));
+  cards.forEach(c=>c.style.display=matches.includes(c)?"block":"none");
+  results.style.display="block";
+  results.innerHTML=matches.length
+    ? matches.map(c=>`<div class="result"><b>${c.querySelector("h3").innerText}</b><small>${c.querySelector("p").innerText}</small></div>`).join("")
+    : `<div class="result"><b>No guide found.</b><small>Try fire, earthquake, flood, typhoon, first aid, security, electrical or chemical.</small></div>`;
+}
+
+/* Generate QR for the actual current page URL */
+function makeQR(){
+  const box=document.getElementById("qrcode");
+  box.innerHTML="";
+  if(window.QRCode){
+    new QRCode(box,{
+      text:window.location.href,
+      width:125,height:125,
+      correctLevel:QRCode.CorrectLevel.M
+    });
+  }else{
+    box.innerHTML="<small>QR generator unavailable</small>";
+  }
+}
+function toggleQR(){
+  const q=document.getElementById("qrFloat");
+  q.style.display=q.style.display==="none"?"block":"none";
+}
+window.addEventListener("load",makeQR);
+</script>
+
 </body>
-  </html>
+</html>
